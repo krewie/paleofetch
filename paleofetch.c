@@ -309,14 +309,6 @@ static char *get_resolution() {
     int screen, width, height;
     char *resolution = malloc(BUF_SIZE);
     
-    if (display != NULL) {
-        screen = DefaultScreen(display);
-    
-        width = DisplayWidth(display, screen);
-        height = DisplayHeight(display, screen);
-
-        snprintf(resolution, BUF_SIZE, "%dx%d", width, height);
-    } else {
         DIR *dir;
         struct dirent *entry;
         char dir_name[] = "/sys/class/drm";
@@ -354,10 +346,7 @@ static char *get_resolution() {
                 }
             }
         }
-        
         closedir(dir);
-    }
-
     return resolution;
 }
 
